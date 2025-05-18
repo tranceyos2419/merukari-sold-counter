@@ -6,30 +6,6 @@ import axios from 'axios';
 
 //$ Read & Write utils
 // Read a CSV file
-
-async function getFirstRedirectURL(url : string) {
-	try {
-	  const response = await axios.get(url, {
-		maxRedirects: 0, // don't follow redirects
-		validateStatus: status => status >= 200 && status < 400, // allow 3xx
-	  });
-
-	  if (response.status >= 300 && response.status < 400) {
-		const redirectUrl = response.headers.location;
-
-		return redirectUrl;
-	  } else {
-		console.log('No redirect occurred.');
-		return null;
-	  }
-	} catch (error) {
-	  console.error('Request failed:', error.message);
-	  return null;
-	}
-  }
-
-
-
 export const readDataSet = (filePath: string): CSVInput[] | CSVOutput[] => {
 	let parsedData: CSVInput[] | CSVOutput[] = [];
 	try {
@@ -110,7 +86,6 @@ export const getWaitTime = (retryCount: number) => {
 	return waitTime;
 }
 
-
 //$ Data manipulation utils
 export const getDate30DaysAgo = (): string => {
 	const today = new Date();
@@ -123,25 +98,46 @@ export const convertTimestampToDate = (timestamp: string): string => {
 	return date.toISOString();
 };
 
+async function getFirstRedirectURL(url: string) {
+	try {
+		const response = await axios.get(url, {
+			maxRedirects: 0, // don't follow redirects
+			validateStatus: status => status >= 200 && status < 400, // allow 3xx
+		});
+
+		if (response.status >= 300 && response.status < 400) {
+			const redirectUrl = response.headers.location;
+
+			return redirectUrl;
+		} else {
+			console.log('No redirect occurred.');
+			return null;
+		}
+	} catch (error) {
+		console.error('Request failed:', error.message);
+		return null;
+	}
+}
+
 export const createNMURL = async (omurl: string, sp: string): Promise<string> => {
 
-		const redirectedURL = await getFirstRedirectURL(omurl)
+	const redirectedURL = await getFirstRedirectURL(omurl)
 
-		if (!redirectedURL) {
-			throw new Error("Failed to retrieve redirect URL");
-		  }
+	if (!redirectedURL) {
+		throw new Error("Failed to retrieve redirect URL");
+	}
 
-		const fullurl = "https://jp.mercari.com" + redirectedURL
+	const fullURL = "https://jp.mercari.com" + redirectedURL
 
-		const price_max = sp.toString().slice(1).replace(/,/g, "");
+	const price_max = sp.toString().slice(1).replace(/,/g, "");
 
-		console.log("sp is here, " , sp , "and here is number" ,  price_max)
-		const url = new URL(fullurl);
-		url.searchParams.set("status", "sold_out");
-		url.searchParams.set("order", "desc");
-		url.searchParams.set("sort", "created_time");
-		url.searchParams.set("price_max", price_max);
-		return url.toString();
+	console.log("sp is here, ", sp, "and here is number", price_max)
+	const url = new URL(fullURL);
+	url.searchParams.set("status", "sold_out");
+	url.searchParams.set("order", "desc");
+	url.searchParams.set("sort", "created_time");
+	url.searchParams.set("price_max", price_max);
+	return url.toString();
 };
 
 export const calculateMedian = (numbers: number[]): number => {

@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.9.0",
     "dotenv": "^16.4.7",
     "nodemailer": "^6.9.16",
     "papaparse": "^5.4.1",
