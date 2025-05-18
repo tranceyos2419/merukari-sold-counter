@@ -21,7 +21,7 @@ export const scrapeOMURL = async (
 
 	const processResponse = async (response: any) => {
 		try {
-			console.log(`${identity} | Processing OMURL response...`);
+			// console.log(`${identity} | Processing OMURL response...`);
 			if (!response) {
 				throw new Error(`Response is null or undefined`);
 			}
@@ -67,7 +67,7 @@ export const scrapeOMURL = async (
 				}
 			});
 
-			console.log(`${identity} - Navigating to OMURL`);
+			// console.log(`${identity} - Navigating to OMURL`);
 			await page.goto(url, { waitUntil: "networkidle2", timeout: 500000 });
 
 			if (MSC > 0 || prices.length > 0) {
@@ -90,7 +90,7 @@ export const scrapeOMURL = async (
 	while (retries < retryLimit) {
 		const success = await navigateAndScrape();
 		if (success) {
-			console.log(`${identity} | OMURL scraping completed successfully.`);
+			// console.log(`${identity} | OMURL scraping completed successfully.`);
 			break;
 		}
 
@@ -123,7 +123,7 @@ export const scrapeNMURL = async (
 
 	const processResponse = async (response: any) => {
 		try {
-			console.log(`${identity} | Processing NMURL response...`);
+			// console.log(`${identity} | Processing NMURL response...`);
 			if (!response) {
 				throw new Error("Response object is null or undefined.");
 			}
@@ -203,14 +203,14 @@ export const scrapeNMURL = async (
 				}
 			});
 
-			console.log(`${identity} | Navigating to NMURL`);
+			// console.log(`${identity} | Navigating to NMURL`);
 			await page.goto(NMURL, {
 				waitUntil: "networkidle2",
 				timeout: 500000,
 			});
 
 			if (keyword || priceMax || exclusiveKeyword) {
-				console.log(`${identity} - Scraping NMURL successful`);
+				// console.log(`${identity} - Scraping NMURL successful`);
 				return true;
 			} else {
 				console.warn("No valid data found for NMURL.");
@@ -230,7 +230,7 @@ export const scrapeNMURL = async (
 		try {
 			const success = await navigateAndScrape();
 			if (success) {
-				console.log(`${identity} | NMURL scraping completed successfully.`);
+				// console.log(`${identity} | NMURL scraping completed successfully.`);
 				break;
 			}
 		} catch (error) {

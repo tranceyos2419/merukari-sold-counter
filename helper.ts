@@ -131,7 +131,7 @@ export const createNMURL = async (omurl: string, sp: string): Promise<string> =>
 
 	const price_max = sp.toString().slice(1).replace(/,/g, "");
 
-	console.log("sp is here, ", sp, "and here is number", price_max)
+	// console.log("sp is here, ", sp, "and here is number", price_max)
 	const url = new URL(fullURL);
 	url.searchParams.set("status", "sold_out");
 	url.searchParams.set("order", "desc");
