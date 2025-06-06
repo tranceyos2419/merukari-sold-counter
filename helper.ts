@@ -162,7 +162,7 @@ export const millisToMinutes = (millis: number): string => {
 };
 
 export const getName = (data: NameParameter): string => {
-	return `${data.item.Identity} | ${data.item.Keyword} | SP:${data.item.SP} | MSPC:${data.MSPC} | MMP:${data.MMP.toLocaleString("ja-JP", { style: "currency", currency: "JPY", })} | FMP:${data.item.FMP} | TSC${data.item.Period}:${data.item.TSC}`;
+	return `${data.item.Identity} | ${data.item.Keyword} | SP:${data.item.SP} | MSPC:${data.MSPC} | MMP:${data.MMP.toLocaleString("ja-JP", { style: "currency", currency: "JPY", })} | Price:${data.item.Price} | TSC${data.item.Period}:${data.item.TSC}`;
 };
 
 export const createDefaultOutput = (

@@ -12,7 +12,7 @@ export interface CSVInput {
 	CCURL: string;
 	PURL: string;
 	SP: number;
-	FMP: string;
+	Price: string;
 	Period: number;
 	TSC: number;
 }
