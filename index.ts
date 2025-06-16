@@ -125,6 +125,9 @@ const PROXIES_FILE_PATH = path.join(process.cwd(), "proxies.json");
 
         const name = getName(nameParameters);
 
+        // Limit PriceMax under MMP (skip in the case of no data for MMP)
+        priceMax = priceMax >= MMP && MMP != 0 ? MMP : priceMax;
+
         const memo = `${item.OMURL} ${item.OYURL} ${item.TURL} ${item.CCURL} ${item.PURL}`;
 
         const outputData: CSVOutput = {
